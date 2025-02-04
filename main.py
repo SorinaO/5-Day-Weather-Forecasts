@@ -1,6 +1,7 @@
 # Import necessary libraries
 import streamlit as st
 import plotly.express as px
+from backend import get_data
 
 
 st.title("Weather Forcast for The Next Days")
@@ -15,17 +16,10 @@ option = st.selectbox("Select data to view", ("Temperature", "Sky"))
 st.subheader(f"{option} for the next {days} days in {place}")
 
 
-# Function to generate dates and temperatures based on the number of forecast days
-def get_data(days):
-    dates = ["2022 - 25-10", "2022-26-10", "2022-27-10"]
-    temperatures = [10, 11, 15]
-    # Multiply each temperature by the number of days
-    temperatures = [ days * i for i in temperatures]
-    return dates, temperatures
+# Get the data based on the selected place, forcast days, and data type
+d, t = get_data(place, days, option)
 
 
-# Get the dates and temperatures based on the selected number of days
-d, t = get_data(days)
 
 # Create a Plotly line chart with the dates and temperatures
 figure = px.line(x=d, y=t, labels={"x": "Date", "y": " Temperature (C)"})
