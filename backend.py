@@ -1,25 +1,33 @@
 import requests
 
+# Your API key for accessing the OpenWeatherMap API
 API_KEY = "eede539bc03287f55d01bcd219061dec"
 
-
-def get_data(place, forcast_days=None, kind=None):
+# Function to get weather data for a specific place
+def get_data(place, forcast_days=None):
+    # Construct the URL for the API request
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={place}&appid={API_KEY}"
+    
+    # Make the HTTP request to the API
     response = requests.get(url)
+    
+    # Parse the JSON response into a Python dictionary
     data = response.json()
+    
+    # Extract the list of forecast data
     filtered_data = data["list"]
-    nr_values = 8 * forcast_days
+
+    # Calculate the number of data points to keep based on the number of forecast days
+    nr_values = 8 * forcast_days  # 8 data points per day
+    
+    # This slice will keep the first nr_values data points from the filtered_data list.
     filtered_data = filtered_data[:nr_values]
-    if kind == "Temperature":
-        filtered_data = [dict["main"]["temp"] for dict in filtered_data]
-    if kind == "Sky":
-        filtered_data = [dict["weather"][0]["main"] for dict in filtered_data]
+    
+   # Return the filtered data
     return filtered_data
 
 
-if __name__=="__main__":
-    print(get_data(place="Tokyo", forcast_days=3, kind="Temperature"))
-
-
-
-
+# Main block to test the function
+if __name__ == "__main__":
+    # Print the temperature data for Tokyo for the next 3 days
+    print(get_data(place="Tokyo", forcast_days=3))
