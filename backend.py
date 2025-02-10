@@ -1,7 +1,12 @@
+import os
 import requests
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Your API key for accessing the OpenWeatherMap API
-API_KEY = "eede539bc03287f55d01bcd219061dec"
+API_KEY = os.getenv("API_KEY")
 
 # Function to get weather data for a specific place
 def get_data(place, forcast_days=None):
@@ -23,7 +28,7 @@ def get_data(place, forcast_days=None):
     # This slice will keep the first nr_values data points from the filtered_data list.
     filtered_data = filtered_data[:nr_values]
     
-   # Return the filtered data
+    # Return the filtered data
     return filtered_data
 
 
