@@ -25,7 +25,7 @@ Code Snippet
 
 Installation
 
-To install and run the weather forecast app, follow these steps:
+To run the app locally, follow these steps:
 
 1. Clone the repository:
     ```bash
